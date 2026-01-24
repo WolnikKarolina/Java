@@ -1,6 +1,8 @@
+package arrayLoop;
+
 import java.util.Scanner;
 
-public class Zadania {
+public class TaskAnalisisLoopArrays {
 
     public static void main(String[] args) {
 

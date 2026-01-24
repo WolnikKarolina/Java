@@ -31,3 +31,39 @@ bin/
 .idea/
 *.iml
 out/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+
+# Kompilacja / pliki binarne
+out/
+target/
+bin/
+*.class
+
+# Logi i pliki tymczasowe
+*.log
+*.tmp
+*.swp
+*.DS_Store
+Thumbs.db
+
+# Maven / Gradle
+.mvn/
+.gradle/
+build/
+dependency-reduced-pom.xml
+*.war
+*.ear
+
+# System / OS
+*.lock
+*.bak
+*.orig
+*.rej
+
+# Inne
+*.jar
