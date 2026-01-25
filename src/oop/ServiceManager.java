@@ -6,7 +6,7 @@ import java.util.List;
 
 public class ServiceManager {
 
-    private List<Service> services = new ArrayList<>();
+    private List<Service> services = new ArrayList<>(); // tworzę liste wszystkich usług
 
     public boolean addService(Service e){
 
@@ -19,7 +19,7 @@ public class ServiceManager {
         }
     }
 
-    private List<Car> getAllCars() {
+    private List<Car> getAllCars() { // metoda pomocnicza która pozwala na iterowanie po utworzonej liście w której zanjdują się tylko samochody, używana w pozostałych metodach
         List<Car> cars = new ArrayList<>();
         for (Service service : services) {
             if (service instanceof Car car) {
@@ -62,7 +62,7 @@ public class ServiceManager {
     public void returnTheCar (String nameOfReturnCar, int currentMilesage, int daysOfRent){
         for (Car car : getAllCars()) {
             if (car.getName().equals(nameOfReturnCar)) {
-                double supplement = car.returnCar(currentMilesage, daysOfRent);
+                double supplement = car.returnCar(currentMilesage, daysOfRent); // metoda z klasy car zwraca dopłatę jeżeli jest przekroczony limit dlatego trzeba ją przypisać do zmiennej
                 if ( supplement > 0){
                     System.out.println("Samochód " + car.getName() + " został zwrócony, dopłata: " + supplement );
                 } else {
@@ -82,7 +82,7 @@ public class ServiceManager {
         }
     }
 
-    private List<Trip> getAllTrips() {
+    private List<Trip> getAllTrips() { // metoda pomocnicza do iterowania po wycieczkach analogicznie jak po samochodach
         List<Trip> trips = new ArrayList<>();
         for (Service service : services) {
             if (service instanceof Trip trip) {
@@ -116,7 +116,7 @@ public class ServiceManager {
     public void addParticipantToTrip(String tripName) {
         for (Trip trip : getAllTrips()) {
             if (trip.getName().equals(tripName)) {
-                boolean add = trip.addParticipant();
+                boolean add = trip.addParticipant(); // metoda z klasy trip zwraca boolena
                 if (add) {
                     System.out.println("Dodano uczestnika do wycieczki " + trip.getName() +
                             ". Aktualna liczba uczestników: " + trip.getCurrentParticipant());
