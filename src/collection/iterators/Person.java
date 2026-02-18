@@ -1,8 +1,8 @@
 package collection.iterators;
 
 public class Person {
-    private String firstName;
-    private int age;
+    final private String firstName;
+    final private int age;
 
     public Person(String firstName, int age) {
         this.firstName = firstName;
