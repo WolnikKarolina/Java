@@ -27,9 +27,10 @@ public class TravelAgency {
         sm.rentTheCar("Toyota Corolla");
         sm.returnTheCar("Toyota Corolla", 200, 1);
         sm.sevenSeaterCar();
-        sm.addParticipantToTrip("Wycieczka kulinarna");
-        sm.addParticipantToTrip("Wycieczka kulinarna");
-        sm.addParticipantToTrip("Wycieczka kulinarna");
+        sm.lengthTrip();
+        sm.rentTheCar("Volkswagen Golf");
+        sm.rentTheCar("Ford Transit");
+        sm.accessibleCar();
 
     }
 
@@ -42,5 +43,6 @@ public class TravelAgency {
             }
 
         }
+        System.out.println();
     }
 }

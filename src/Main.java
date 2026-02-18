@@ -1,13 +1,39 @@
-import java.util.Scanner;
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
-public class Main {
-    public static void main(String[] args) {
-        //TIP Press <shortcut actionId="ShowIntentionActions"/> with your caret at the highlighted text
-        // to see how IntelliJ IDEA suggests fixing it.
-        System.out.print("Hello and welcome!");
+import java.util.Objects;
 
-        Scanner sc = new Scanner(System.in);
+public class Main{
+    public static void main(String[] args) {
+
+        Rectangle r1 = new Rectangle(5.0 , 5.0);
+        Rectangle r2 = new Rectangle(2.5 , 4.0);
+        Rectangle r3 = new Rectangle(7.7 , 1.0);
+
+        System.out.println(r1 + "czy kwadrat?: " + r1.isSquare());
+        System.out.println(r1.area());
+        System.out.println();
 
     }
+
+    record Rectangle (double width, double height){
+        @Override
+        public boolean equals(Object o) {
+            if (o == null || getClass() != o.getClass()) return false;
+            Rectangle rectangle = (Rectangle) o;
+            return Double.compare(width, rectangle.width) == 0 && Double.compare(height, rectangle.height) == 0;
+        }
+
+        @Override
+        public int hashCode() {
+            return Objects.hash(width, height);
+        }
+
+        double area(){
+            return Math.abs(width * height);
+        }
+
+        boolean isSquare(){
+            return width == height;
+        }
+    }
+
+
 }
