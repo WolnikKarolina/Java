@@ -1,3 +1,5 @@
+package tasks.weather;
+
 public class TempApp {
 
     public record Weather (
@@ -44,7 +46,7 @@ public class TempApp {
 
         public abstract double convert(double value, Unit target);
 
-    };
+    }
 
 
 

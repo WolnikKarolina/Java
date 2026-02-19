@@ -1,6 +1,6 @@
 package oop;
 
-abstract class Service {
+public abstract class Service {
     private String name;
     private double netPrice;
     private int minParticipant;

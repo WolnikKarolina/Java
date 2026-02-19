@@ -19,16 +19,13 @@ public class PersonApp {
         Map<String, List<Person>> peopleByCity = new TreeMap<>();
         people.forEach(person -> peopleByCity.computeIfAbsent(person.getCity(), k -> new ArrayList<>()).add(person));
 
-        peopleByCity.entrySet()
-                .forEach(entry -> {
-                    String city = entry.getKey();
-                    List<Person> persons = entry.getValue();
-                    persons.sort(Comparator.comparing(Person::getAge).reversed());
-                    System.out.print(city + ": ");
-                    persons.forEach(p -> System.out.print(p.getName() + " "));
-                    System.out.println();
+        peopleByCity.forEach((city, persons) -> {
+            persons.sort(Comparator.comparing(Person::getAge).reversed());
+            System.out.print(city + ": ");
+            persons.forEach(p -> System.out.print(p.getName() + " "));
+            System.out.println();
 
-                });
+        });
 
 
 

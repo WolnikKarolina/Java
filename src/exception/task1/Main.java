@@ -13,17 +13,13 @@ public class Main {
 
 
         checkAge(user);
-
         checkAge(user2);
-
         checkAge(user3);
-
         checkAge(user4);
 
     }
 
     private static void checkAge(User user) {
-
         try {
             int userAge = AgeService.parseAge(user.getAge());
             System.out.println("Wiek użytkownika: " + userAge);

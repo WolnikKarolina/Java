@@ -23,7 +23,7 @@ public class Hospital {
         System.out.println(patients);
         System.out.println();
 
-        Queue<Patient> vipPatients = new PriorityQueue<>((p1, p2) -> p1.getPriority() - p2.getPriority());
+        Queue<Patient> vipPatients = new PriorityQueue<>(Comparator.comparingInt(Patient::getPriority));
 
         vipPatients.offer(new Patient("Magda Nowakowska", 5));
         vipPatients.offer(new Patient("Kaisa Adamska", 2));

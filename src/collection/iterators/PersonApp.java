@@ -1,6 +1,5 @@
 package collection.iterators;
 
-import java.util.Iterator;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -17,10 +16,7 @@ public class PersonApp {
         persons.put("Biernacki", new Person("Michał", 30));
 
 
-        Iterator<Map.Entry<String, Person>> it = persons.entrySet().iterator();
-
-        while (it.hasNext()) {
-            Map.Entry<String, Person> entry = it.next();
+        for (Map.Entry<String, Person> entry : persons.entrySet()) {
             String key = entry.getKey();
             String value = String.valueOf(entry.getValue());
             System.out.println(key + ", " + value);

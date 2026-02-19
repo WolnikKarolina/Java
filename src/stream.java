@@ -35,7 +35,6 @@ public class stream {
         long count = numbers3.stream()
                 .filter(n -> n > 3)
                 .map(n -> n * 2)
-                .sorted(Comparator.reverseOrder())
                 .peek(System.out::println)
                 .count();
         System.out.println(count);
@@ -52,13 +51,14 @@ public class stream {
 
         // liczby wieksze od 3 podnies do kwadratu i wypisz wieksze niz 20 w kolejnosci malejacej, zlicz je
         List<Integer> numbers4 = List.of(3, 7, 2, 9, 4);
-        long count1 = numbers4.stream()
+        List<Integer> result = numbers4.stream()
                 .filter(n -> n > 3)
                 .map(n -> n * n)
                 .sorted(Comparator.reverseOrder())
                 .filter(n -> n > 20)
-                .count();
-        System.out.println(count1);
+                .toList();
+        result.forEach(System.out::println);
+        System.out.println("Ilość elementów: " + result.size());
         System.out.println("zad6");
 
 

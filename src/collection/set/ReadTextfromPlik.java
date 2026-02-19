@@ -5,7 +5,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.TreeSet;
@@ -16,7 +15,7 @@ public class ReadTextfromPlik {
     public static void main(String[] args) {
 
         //  1 rozwiązanie
-        List<String> names = new ArrayList<>();
+        List<String> names;
         Path path = Path.of("src/resources/namespl.txt");
         try {
             names = Files.readAllLines(path);

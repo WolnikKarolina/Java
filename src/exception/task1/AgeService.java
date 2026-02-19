@@ -6,7 +6,6 @@ public class AgeService {
         int ageFromString = Integer.parseInt(age);
         if ( ageFromString <= 0 || ageFromString > 150) {
             throw new IllegalArgumentException("Nieprawidłowy wiek");
-
         }
         return ageFromString;
     }

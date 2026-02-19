@@ -15,7 +15,7 @@ public class task3 {
         System.out.println("Pogrupuj słowa według długości znaków");
         Map<Integer, List<String>> wordLength = new TreeMap<>();
         words.forEach(word -> wordLength.computeIfAbsent(word.length(), k -> new ArrayList<>()).add(word));
-        wordLength.entrySet().stream()
+        wordLength.entrySet()
                         .forEach(entry -> {
                                 int howManyLetters = entry.getKey();
                                 String word = String.valueOf(entry.getValue());
@@ -80,9 +80,7 @@ public class task3 {
 
         System.out.println("Słowa na daną literę");
         Map<Character, List<String>> wordsByFirstLetter = new TreeMap<>();
-        words.forEach(letter -> {
-            wordsByFirstLetter.computeIfAbsent(letter.charAt(0), k -> new ArrayList<>()).add(letter);
-        });
+        words.forEach(letter -> wordsByFirstLetter.computeIfAbsent(letter.charAt(0), k -> new ArrayList<>()).add(letter));
         wordsByFirstLetter.entrySet().stream()
                     .forEach(entry -> {
                     Character letter = entry.getKey();

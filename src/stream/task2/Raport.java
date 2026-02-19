@@ -24,9 +24,6 @@ public class Raport {
         top3(transactions);
         raport(transactions);
 
-
-
-
     }
 
     private static void top3(List<Transaction> transactions) {
@@ -55,7 +52,7 @@ public class Raport {
     }
 
 
-    private static Map<String, Double> raport(List<Transaction> transactions) {
+    private static void raport(List<Transaction> transactions) {
         System.out.println("Suma transakcji dla poszczególnych regionów wynosi: ");
         Map<String, Double> result = transactions.stream()
                 .filter(t -> !t.isFraud())
@@ -67,15 +64,8 @@ public class Raport {
                         LinkedHashMap::new
                 ));
         result.entrySet().stream()
-                .sorted((e1, e2) -> Double.compare(e1.getValue(), e2.getValue()))
-                .forEach( (entry -> {
-                    System.out.println(entry.getKey() + " -> suma transakcji: " + entry.getValue());
-                }));
+                .sorted(Comparator.comparingDouble(Map.Entry::getValue))
+                .forEach( (entry -> System.out.println(entry.getKey() + " -> suma transakcji: " + entry.getValue())));
 
-
-
-
-
-        return result;
     }
 }

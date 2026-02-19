@@ -33,7 +33,7 @@ public class listsTask1 {
 
        boolean ifContains = firstnames.contains("Majka");
         System.out.println("ArrayList zawiera Majka? " + ifContains);
-        System.out.println("LinkedList zawiera Marta: " + firstnames2.contains("Marta")); ;
+        System.out.println("LinkedList zawiera Marta: " + firstnames2.contains("Marta"));
 
 
         System.out.println("ArrayList po zmianach: " + firstnames);

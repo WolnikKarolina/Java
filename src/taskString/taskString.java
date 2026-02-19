@@ -68,7 +68,6 @@ public class taskString {
 
     private static String readWord(Scanner sc) {
         System.out.println("Podaj słowo");
-        String word = sc.nextLine();
-        return word;
+        return sc.nextLine();
     }
 }

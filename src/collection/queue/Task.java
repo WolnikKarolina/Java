@@ -32,8 +32,6 @@ public class Task implements Comparable<Task>{
                 '}';
     }
 
-
-
     @Override
     public int compareTo(Task other) {
         if (other.priority.compareTo(this.priority) == 0) {

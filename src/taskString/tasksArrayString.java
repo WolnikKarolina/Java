@@ -6,7 +6,7 @@ public class tasksArrayString {
 
         String[] words = {"Java", "to", "zabawa"};
 
-        int[] letterCount = new int[words.length];
+        int[] letterCount;
         letterCount = stringToInt(words);
 
         for (int i = 0; i < words.length; i++) {

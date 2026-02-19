@@ -24,8 +24,8 @@ public class TaskManager {
             System.out.println(tasks.poll());
         }
 
-        System.out.println(tasks.peek());
-
+        // System.out.println(tasks.peek());
+        // zwróci null bo kolejka jest pusta ale nie wyrzuci błędu
     }
 
 

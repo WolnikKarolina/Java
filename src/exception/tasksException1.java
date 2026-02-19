@@ -6,7 +6,7 @@ public class tasksException1 {
 
         try {
             int result = divide(3, 0);
-            System.out.print("sesult");
+            System.out.print("result: " + result);
         } catch (ArithmeticException e) {
             System.out.println(e.getMessage());
         }
@@ -15,13 +15,14 @@ public class tasksException1 {
         int b = 0;
         try {
             int result = a / b;
+            System.out.println(result);
         } catch (ArithmeticException e) {
             System.out.println("Ups, dzielenie przez zero");
         } finally {
             System.out.println("Blok finnaly zawsze działa");
         }
 
-        String number = "Jeden2";
+        String number = "Jeden";
         try {
             int numberByInt = Integer.parseInt(number);
             System.out.println("Liczba to " + numberByInt);
@@ -35,17 +36,10 @@ public class tasksException1 {
         }catch  (NumberFormatException e) {
             System.out.println(e.getMessage());
         }
-
-
-
-
-
-
     }
 
     private static int toInt(String number) throws NumberFormatException {
         return Integer.parseInt(number);
-
     }
 
 

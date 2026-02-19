@@ -31,9 +31,7 @@ public class LambdaMiniTasks {
             }
         }
 
-        numbers.forEach(n -> {
-            System.out.println("Liczba: " + n);
-        });
+        numbers.forEach(n -> System.out.println("Liczba: " + n));
 
         Predicate<Integer> moreThan5 = n -> n > 5;
         numbers.forEach(n -> {

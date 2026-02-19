@@ -31,6 +31,8 @@ public class TravelAgency {
         sm.rentTheCar("Volkswagen Golf");
         sm.rentTheCar("Ford Transit");
         sm.accessibleCar();
+        sm.showAllCars();
+
 
     }
 

@@ -1,3 +1,4 @@
+import java.awt.*;
 import java.util.Objects;
 
 public class Main{
@@ -7,9 +8,15 @@ public class Main{
         Rectangle r2 = new Rectangle(2.5 , 4.0);
         Rectangle r3 = new Rectangle(7.7 , 1.0);
 
-        System.out.println(r1 + "czy kwadrat?: " + r1.isSquare());
+        System.out.println(r1 + "czy kwadrat?: " + (r1.isSquare() ? "tak" : "nie"));
         System.out.println(r1.area());
-        System.out.println();
+
+        System.out.println(r2 + "czy kwadrat?: " + (r2.isSquare() ? "tak" : "nie"));
+        System.out.println(r2.area());
+
+        System.out.println(r3 + "czy kwadrat?: " + (r3.isSquare() ? "tak" : "nie"));
+        System.out.println(r3.area());
+
 
     }
 
