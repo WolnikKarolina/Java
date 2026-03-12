@@ -1,4 +1,4 @@
-package tasks.weather;
+package multiFeatureTasks.weather;
 
 import java.io.IOException;
 import java.nio.file.Files;

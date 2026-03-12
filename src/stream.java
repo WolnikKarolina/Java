@@ -7,7 +7,9 @@ public class stream {
 
         // wypisz Stringa i jego długość
         List<String> words = List.of("a", "bb", "ccc");
-        words.stream().map(n -> n + " - " + n.length()).forEach(System.out::println);
+        words.stream()
+                .map(n -> n + " - " + n.length())
+                .forEach(System.out::println);
         System.out.println("zad1");
 
         //wypisz liczby parzyste w kolejności malejącej
@@ -26,7 +28,7 @@ public class stream {
                 .forEach(System.out::println);
         System.out.println("zad3");
 
-        //Weź tylko liczby większe niż 3 (filter)
+        //Weź tylko liczby większe niż 3
         //Pomnóż każdą przez 2
         //Posortuj malejąco
         //Użyj peek do wypisania pośrednich wyników
@@ -37,7 +39,7 @@ public class stream {
                 .map(n -> n * 2)
                 .peek(System.out::println)
                 .count();
-        System.out.println(count);
+        System.out.println("ilośc elementów: " + count);
         System.out.println("zad4");
 
         // Wypisz długości napisów,które zawierają literę a, w kolejności rosnącej,
