@@ -1,6 +1,6 @@
-package oop;
+package oop.travleAgencyTask;
 
-public class Trip extends Service{
+public class Trip extends Service {
     private boolean withGuide;
     private int lengthTrip;
     private int currentParticipant = 0;

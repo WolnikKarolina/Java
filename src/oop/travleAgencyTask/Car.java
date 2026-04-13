@@ -1,6 +1,6 @@
-package oop;
+package oop.travleAgencyTask;
 
-public class Car extends Service{
+public class Car extends Service {
     private int mileLimit = 100;
     private int mileageUsed;
     private boolean available = true;

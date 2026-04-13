@@ -1,4 +1,4 @@
-package oop;
+package oop.travleAgencyTask;
 
 public class TravelAgency {
     public static void main(String[] args) {

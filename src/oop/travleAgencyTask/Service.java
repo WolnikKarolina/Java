@@ -1,4 +1,4 @@
-package oop;
+package oop.travleAgencyTask;
 
 public abstract class Service {
     private String name;

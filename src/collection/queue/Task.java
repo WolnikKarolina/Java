@@ -28,7 +28,7 @@ public class Task implements Comparable<Task>{
         return "Task{" +
                 "name='" + name + '\'' +
                 ", priority=" + priority +
-                ", order=" + order +
+                ", oop.order=" + order +
                 '}';
     }
 
