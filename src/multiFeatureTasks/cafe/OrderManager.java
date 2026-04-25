@@ -1,10 +1,18 @@
 package multiFeatureTasks.cafe;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
 public class OrderManager {
-    List<Order> orders = new ArrayList<>();
+    private List<Order> orders = new ArrayList<>();
+
+    public List<Order> getOrders() {
+        return orders;
+    }
 
     public boolean addOrder(Order order){
         return orders.add(order);
@@ -12,31 +20,42 @@ public class OrderManager {
 
     public void printOrders(){
         if (orders.isEmpty()){
-            System.out.println("Brak zamówień");
+            throw new IllegalStateException("Brak zamówień");
         } else {
             orders.forEach(System.out::println);
         }
     }
 
     public double sumOrders(){
-        double sum = 0;
-        if (orders.isEmpty()){
-            System.out.println("Brak zamówień");
-            return 0;
-        } else {
-            sum = orders.stream()
-                    .mapToDouble(Order::price)
-                    .sum();
-        }
-        return sum;
+        return orders.stream()
+                .mapToDouble(Order::price)
+                .sum();
+
     }
 
     public boolean deleteOrder ( Order order){
-        if ( orders.remove(order)){
-            return true;
-        } else {
-            System.out.println("Podane zamówienie nie istnieje");
-            return false;
+        return orders.remove(order);
+    }
+
+    public void saveToFile(String fileName) throws IOException {
+        Path path = Path.of(fileName);
+        Files.write(path, orders.stream().map(o-> o.name() + "; "
+                + o.price()).toList(), StandardOpenOption.CREATE,StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    public void loadFromFile(String fileName) throws IOException {
+        Path path = Path.of(fileName);
+        if (!Files.exists(path))
+            return;
+        List<String> lines = Files.readAllLines(path);
+        for (String line : lines) {
+            String[] parts = line.split("; ");
+            String name = parts[0];
+            String price = parts[1];
+            Order o = new Order(name, Double.parseDouble(price));
+            orders.add(o);
         }
+
+
     }
 }

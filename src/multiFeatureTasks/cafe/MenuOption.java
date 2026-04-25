@@ -1,16 +1,22 @@
 package multiFeatureTasks.cafe;
 
 public enum MenuOption {
-    ADD_ORDER(1),
-    PRINT_ORDERS(2),
-    SUM(3),
-    DELETE_ORDER(4),
-    EXIT(0);
+    ADD_ORDER(1, "Dodaj zamówienie"),
+    PRINT_ORDERS(2, "Wyświetl zamówienie"),
+    SUM(3, "Suma zamówień"),
+    DELETE_ORDER(4, "Usuń zamówienie"),
+    EXIT(0, "Wyjście z programu");
 
     private final int option;
+    private final String description;
 
-    MenuOption(int option) {
+    MenuOption(int option, String description) {
         this.option = option;
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 
     public int getOption() {
@@ -27,7 +33,7 @@ public enum MenuOption {
     }
     public static void printMenu(){
         for (MenuOption value : MenuOption.values()) {
-            System.out.println( value + " - " + value.option);
+            System.out.println( value.description + " - " + value.option);
 
         }
     }

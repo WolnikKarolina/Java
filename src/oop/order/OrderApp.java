@@ -12,11 +12,11 @@ public class OrderApp {
 
         List<Order> orders = new ArrayList<>();
 
-        orders.add(new Order(1, 100.0, BigDecimal.valueOf(0.10))); // rabat 10%
-        orders.add(new Order(2, 50.0, BigDecimal.valueOf(0) ));                       // brak rabatu
-        orders.add(new Order(3, 200.0, BigDecimal.valueOf(0.15))); // rabat 15%
-        orders.add(new Order(4, 75.0, BigDecimal.valueOf(0)));                       // brak rabatu
-        orders.add(new Order(5, 150.0, BigDecimal.valueOf(0.05))); // rabat 5%
+        orders.add(new Order(1, 100.0, BigDecimal.valueOf(0.10)));
+        orders.add(new Order(2, 50.0, BigDecimal.valueOf(0) ));
+        orders.add(new Order(3, 200.0, BigDecimal.valueOf(0.15)));
+        orders.add(new Order(4, 75.0, BigDecimal.valueOf(0)));
+        orders.add(new Order(5, 150.0, BigDecimal.valueOf(0.05)));
         orders.add(new Order(6, 120.0, BigDecimal.valueOf(0.20)));
 
         double totalOrders = orders.stream()
@@ -49,10 +49,10 @@ public class OrderApp {
                 .filter(o -> o.finalPrice() > average)
                 .forEach(o -> System.out.println(o.number()));
 
-        double ddiscountSum = orders.stream()
+        double discountSum = orders.stream()
                 .mapToDouble(o -> o.price() - o.finalPrice())
                 .sum();
-        System.out.println("Suma rabatów: " + ddiscountSum);
+        System.out.println("Suma rabatów: " + discountSum);
 
         System.out.println("Zamówienia posortowane według ceny końcowej:");
         Stream<Double> sortedByPrice = orders.stream()
