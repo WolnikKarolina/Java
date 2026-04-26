@@ -1,5 +1,9 @@
 package multiFeatureTasks.films;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.*;
 
 public class FilmManager {
@@ -52,4 +56,25 @@ public class FilmManager {
         toWatch.forEach(System.out::println);
     }
 
+    public void saveToFile(String filename, Set<Film> films) throws IOException {
+        Path path = Path.of(filename);
+        List<String> lists = films.stream()
+                        .map(f -> f.title() + ";" + f.category() + ";" + f.rating()).toList();
+        Files.write(path, lists, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+
+    public void loadFromFile(String fileName, Set<Film> films) throws IOException {
+        Path path = Path.of(fileName);
+        if (!Files.exists(path))
+            return;
+        List<String> lists = Files.readAllLines(path);
+        for (String list : lists) {
+            String[] parts = list.split(";");
+            String title = parts[0];
+            String category = parts[1];
+            String rating = parts[2];
+            films.add(new Film(title, category, Integer.parseInt(rating)));
+        }
+    }
 }

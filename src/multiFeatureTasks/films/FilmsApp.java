@@ -1,5 +1,6 @@
 package multiFeatureTasks.films;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 
@@ -11,22 +12,21 @@ public class FilmsApp {
     public static final int MOVIES_TO_WATCH = 5;
     public static final int EXIT = 0;
 
-    static void main(String[] args) {
+
+    public static void main(String[] args) {
+        final String filmsToWatch = "FilmsToWatch.csv";
+        final String watchedFilms = "WatchedFilms.csv";
 
         FilmManager fm = new FilmManager();
-        fm.watched.add(new Film("Inni", "horror", 5));
-        fm.watched.add(new Film("Siedem", "horror", 4));
-        fm.watched.add(new Film("Szósty zmysł", "horror", 5));
-        fm.watched.add(new Film("Forrest Gump", "dramat", 5));
-        fm.watched.add(new Film("Gladiator", "dramat", 4));
 
-        fm.toWatch.add(new Film("Shutter Island", "horror", 4));
-        fm.toWatch.add(new Film("Psychoza", "horror", 5));
-        fm.toWatch.add(new Film("Milczenie owiec", "horror", 5));
-        fm.toWatch.add(new Film("Titanic", "dramat", 4));
-        fm.toWatch.add(new Film("Król Lew", "dramat", 5));
         Scanner sc = new Scanner(System.in);
         int choice;
+        try {
+            fm.loadFromFile(filmsToWatch, fm.toWatch);
+            fm.loadFromFile(watchedFilms, fm.watched);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         do {
             System.out.println("Wybierz opcję: ");
             System.out.println("Dodaj film - " + ADD_MOVIE);
@@ -43,7 +43,15 @@ public class FilmsApp {
                 case 3 -> moviesFromCategory(sc, fm);
                 case 4 -> moviesByRating(sc, fm);
                 case 5 -> moviesToWatch(fm);
-                case 0 -> System.out.println("Bye Bye");
+                case 0 -> {
+                    System.out.println("Bye Bye");
+                    try {
+                        fm.saveToFile(filmsToWatch, fm.toWatch);
+                        fm.saveToFile(watchedFilms, fm.watched);
+                    } catch (IOException e) {
+                        throw new RuntimeException(e);
+                    }
+                }
             }
         } while (choice != 0);
     }
