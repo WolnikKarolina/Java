@@ -25,7 +25,7 @@ public class FilmsApp {
             fm.loadFromFile(filmsToWatch, fm.toWatch);
             fm.loadFromFile(watchedFilms, fm.watched);
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            System.out.println("Nie udało się wczytać pliku: " + e.getMessage());
         }
         do {
             System.out.println("Wybierz opcję: ");
@@ -49,7 +49,7 @@ public class FilmsApp {
                         fm.saveToFile(filmsToWatch, fm.toWatch);
                         fm.saveToFile(watchedFilms, fm.watched);
                     } catch (IOException e) {
-                        throw new RuntimeException(e);
+                        System.out.println("Nie udało się zapisać danych do pliku: " + e.getMessage());
                     }
                 }
             }
