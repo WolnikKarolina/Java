@@ -10,6 +10,10 @@ public class Order {
 
     private static int nextId = 1;
 
+    public static void setNextId(int nextId) {
+        Order.nextId = nextId;
+    }
+
     static final double BIG_VALUE = 100.0;
 
     public Order(String customer, double value) {
@@ -17,6 +21,13 @@ public class Order {
         this.value = value;
         this.status = Status.NOWE;
         this.id = nextId++;
+    }
+
+    private Order(String customer, double value, Status status, int id) {
+        this.customer = customer;
+        this.value = value;
+        this.status = status;
+        this.id = id;
     }
 
     public int getId() {
@@ -39,14 +50,20 @@ public class Order {
         this.status = status;
     }
 
-
-
     public String getActive() {
         return status.isActive() ? "AKTYWNE" : "NIEAKTYWNE";
     }
 
+    public static int getNextId() {
+        return nextId;
+    }
+
     public boolean isBig() {
         return value >= BIG_VALUE;
+    }
+
+    public static Order fromFile (String customer, double value, Status status, int id){
+        return new Order(customer, value, status, id);
     }
 
     public void takeOrder() {

@@ -1,5 +1,9 @@
 package multiFeatureTasks.tasksOrders;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -44,7 +48,6 @@ public class OrdersManager {
     }
 
     public void takeOrder( int id) {
-
         orders.stream()
                 .filter(o -> o.getId() == id)
                 .findFirst()
@@ -77,6 +80,37 @@ public class OrdersManager {
                 .peek(System.out::println)
                 .count();
         System.out.println("Łącznie zrealizowanych zamówień: " + count);
+
+    }
+
+    public void saveToFile(String fileName) throws IOException {
+        Path path = Path.of(fileName);
+        List<String> lists = orders.stream()
+                .map(o -> o.getCustomer() + ";" + o.getValue() + ";" + o.getStatus() + ";" + o.getId())
+                .toList();
+        Files.write(path, lists, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+    }
+
+    public void loadToFile(String fileName) throws IOException {
+        Path path = Path.of(fileName);
+        List<String> lines = Files.readAllLines(path);
+        for (String line : lines) {
+            String[] parts = line.split(";");
+            String customer = parts[0];
+            String value = parts[1];
+            String status = parts[2];
+            String id = parts[3];
+            orders.add(Order.fromFile(customer, Double.parseDouble(value), Status.valueOf(status), Integer.parseInt(id)));
+
+        }
+        int max = orders.stream().mapToInt(multiFeatureTasks.tasksOrders.Order::getId).max().orElse(0);
+        Order.setNextId(max);
+    }
+
+    public void orderFromId(int id){
+        orders.stream()
+                .filter(o -> o.getId() == id)
+                .forEach(System.out::println);
 
     }
 

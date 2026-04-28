@@ -22,7 +22,7 @@ public class EmployeesApp {
         mainLoop(sc, manager);
     }
 
-    private static void mainLoop(Scanner sc, EmployeesManager manager) {
+    public static void mainLoop(Scanner sc, EmployeesManager manager) {
         MenuOptions choice;
         do{
             System.out.println("Wybierz opcję:");
