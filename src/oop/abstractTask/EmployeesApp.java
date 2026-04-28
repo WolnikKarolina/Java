@@ -1,5 +1,6 @@
 package oop.abstractTask;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 public class EmployeesApp {
@@ -20,19 +21,19 @@ public class EmployeesApp {
         Scanner sc = new Scanner(System.in);
         MenuOptions choice;
         mainLoop(sc, manager);
+
     }
 
     public static void mainLoop(Scanner sc, EmployeesManager manager) {
+        String fileName = "Employees.csv";
+        try {
+            manager.loadFromFile(fileName);
+        } catch (IOException e) {
+            System.out.println("Nie udało się odcztać danych z pliku");
+        }
         MenuOptions choice;
         do{
-            System.out.println("Wybierz opcję:");
-            System.out.println("Dodaj pracownika - 1");
-            System.out.println("Pokaż wszystkich pracowników - 2");
-            System.out.println("Pokaż sumę wypłat miesięcznych - 3");
-            System.out.println("Pokaż sumę wypłat rocznych - 4");
-            System.out.println("Pokaż posortowane wypłaty miesięczne - 5");
-            System.out.println("Pokaż posortowane wypłaty roczne - 6");
-            System.out.println("Wyjście z programu - 0");
+            MenuOptions.showOption();
             int userInput = (int)readPositiveNumber(sc, "Wpisz numer opcji z menu");
             sc.nextLine();
             choice = MenuOptions.fromInt(userInput);
@@ -47,6 +48,11 @@ public class EmployeesApp {
                     case EXIT -> {
                         System.out.println("Bye bye");
                         sc.close();
+                        try {
+                            manager.saveToFile(fileName);
+                        } catch (IOException e) {
+                            System.out.println("Zapis do pliku nie powiódł się");
+                        }
                     }
 
                 }
@@ -107,6 +113,7 @@ public class EmployeesApp {
         }
         System.out.println("Dodano pracownika");
     }
+
 
 
 }

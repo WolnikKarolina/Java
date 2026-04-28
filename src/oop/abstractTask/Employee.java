@@ -1,8 +1,6 @@
 package oop.abstractTask;
 
-import java.io.Serializable;
-
-public abstract class Employee implements Serializable{
+public abstract class Employee{
     private String firstName;
     private String lastName;
 
