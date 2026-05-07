@@ -5,29 +5,27 @@ import multiFeatureTasks.library.pl.javastart.library.model.Book;
 import multiFeatureTasks.library.pl.javastart.library.model.Library;
 import multiFeatureTasks.library.pl.javastart.library.model.Magazine;
 
+import static multiFeatureTasks.library.pl.javastart.library.app.Option.*;
+
 public class LibraryControl {
 
-    private static final int EXIT = 0;
-    private static final int ADD_BOOK = 1;
-    private static final int ADD_MAGAZINE = 2;
-    private static final int PRINT_BOOKS = 3;
-    private static final int PRINT_MAGAZINES = 4;
+
 
     private DataReader dataReader = new DataReader();
     private Library library = new Library();
 
     public void controlLoop(){
-        int option;
+        Option option;
         do {
             printOptions();
-            option = dataReader.getInt();
+            option = Option.createFromInt(dataReader.getInt());
             switch (option){
                 case ADD_BOOK -> addBook();
                 case ADD_MAGAZINE -> addMagazine();
                 case PRINT_BOOKS -> printBooks();
                 case PRINT_MAGAZINES -> printMagazines();
                 case EXIT -> exit();
-
+                default -> System.out.println("Nie ma takiej opcji, wprowadź ponownie");
             }
         }while (option != EXIT);
     }
@@ -57,9 +55,9 @@ public class LibraryControl {
 
     private void printOptions() {
         System.out.println("Wybierz opcję: ");
-        System.out.println(EXIT + " - Wyjście z programu");
-        System.out.println(ADD_BOOK + " - Dodanie nowej książki");
-        System.out.println(PRINT_BOOKS + " - Wyśietl dostępne książki");
+        for (Option option : values()) {
+            System.out.println(option);
+        }
     }
 
 
