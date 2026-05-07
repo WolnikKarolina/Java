@@ -4,6 +4,7 @@ public class TravelAgency {
     public static void main(String[] args) {
 
         ServiceManager sm = new ServiceManager();
+        final String fileName = "TravelAgency.csv";
 
         Trip[] trips = {
                 new Trip("Wycieczka w góry", 200, 2, 5, true, 3),
@@ -32,6 +33,8 @@ public class TravelAgency {
         sm.rentTheCar("Ford Transit");
         sm.accessibleCar();
         sm.showAllCars();
+        sm.saveToFile(fileName);
+        sm.loadFromFile(fileName);
 
 
     }

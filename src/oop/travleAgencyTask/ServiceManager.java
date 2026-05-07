@@ -1,5 +1,9 @@
 package oop.travleAgencyTask;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -149,6 +153,66 @@ public class ServiceManager {
         System.out.println("Nie znaleziono wycieczki o nazwie: " + tripName);
         System.out.println();
     }
+
+    public void saveToFile(String fileName){
+        Path path = Path.of(fileName);
+        List<String> lists = services.stream()
+                .map(this::servicesToString)
+                .toList();
+        try {
+            Files.write(path, lists, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
+        } catch (IOException e) {
+            System.out.println("Nie udało się zapisac do pliku");
+        }
+    }
+
+    public void loadFromFile(String fileName){
+        Path path = Path.of(fileName);
+        try {
+            List<String> line = Files.readAllLines(path);
+            for (String s : line) {
+                String[] parts = s.split(";");
+                if (parts[0].equals("Trip")){
+                    String name = parts[1];
+                    String netPrice = parts[2];
+                    String minParticipant = parts[3];
+                    String maxParticipant = parts[4];
+                    String withGuide = parts[5];
+                    String lengthTrip = parts[6];
+                    String currentParticipant = parts[7];
+                    services.add(Trip.fromFileString(name, Double.parseDouble(netPrice), Integer.parseInt(minParticipant), Integer.parseInt(maxParticipant), Boolean.parseBoolean(withGuide),
+                            Integer.parseInt(lengthTrip), Integer.parseInt(currentParticipant)));
+                } else {
+                    String name = parts[1];
+                    String netPrice = parts[2];
+                    String minParticipant = parts[3];
+                    String maxParticipant = parts[4];
+                    String mileLimit = parts[5];
+                    String mileageUsed = parts[6];
+                    String available = parts[7];
+                    services.add(Car.fromFile(name, Double.parseDouble(netPrice), Integer.parseInt(minParticipant), Integer.parseInt(maxParticipant),
+                            Integer.parseInt(mileLimit), Integer.parseInt(mileageUsed), Boolean.parseBoolean(available)));
+
+                }
+
+            }
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    private String servicesToString(Service s) {
+        if ( s instanceof Trip){
+            return "Trip" + ";" + s.getName() + ";" + s.getNetPrice() + ";" + s.getMinParticipant() + ";"
+                    + s.getMaxParticipant() + ";" + ((Trip) s).isWithGuide() + ";" + ((Trip) s).getLengthTrip() + ";" + ((Trip) s).getCurrentParticipant();
+        } else if (s instanceof Car) {
+            return "Car" + ";" + s.getName() + ";" + s.getNetPrice() + ";" + s.getMinParticipant() + ";"
+                    + s.getMaxParticipant() + ";" + ((Car) s).getMileageUsed() + ";" + ((Car) s).getMileageUsed() + ";" + ((Car) s).isAvailable();
+        }
+        return null;
+    }
+
 
 }
 

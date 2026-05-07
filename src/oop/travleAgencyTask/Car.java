@@ -9,6 +9,17 @@ public class Car extends Service {
         super(name, netPrice, minParticipant, maxParticipant);
     }
 
+    private Car(String name, double netPrice, int minParticipant, int maxParticipant, int mileLimit, int mileageUsed, boolean available) {
+        super(name, netPrice, minParticipant, maxParticipant);
+        this.mileLimit = mileLimit;
+        this.mileageUsed = mileageUsed;
+        this.available = available;
+    }
+
+    public static Car fromFile(String name, double netPrice, int minParticipant, int maxParticipant, int mileLimit, int mileageUsed, boolean available){
+        return new Car(name, netPrice, minParticipant, maxParticipant, mileLimit, mileageUsed, available);
+    }
+
     public int getMileLimit() {
         return mileLimit;
     }

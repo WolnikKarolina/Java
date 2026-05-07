@@ -25,6 +25,17 @@ public class Trip extends Service {
         this.lengthTrip = lengthTrip;
     }
 
+    private Trip(String name, double netPrice, int minParticipant, int maxParticipant, boolean withGuide, int lengthTrip, int currentParticipant) {
+        super(name, netPrice, minParticipant, maxParticipant);
+        this.withGuide = withGuide;
+        this.lengthTrip = lengthTrip;
+        this.currentParticipant = currentParticipant;
+    }
+
+    public static Trip fromFileString (String name, double netPrice, int minParticipant, int maxParticipant, boolean withGuide, int lengthTrip, int currentParticipant){
+        return new Trip(name, netPrice, minParticipant, maxParticipant, withGuide, lengthTrip, currentParticipant);
+    }
+
     @Override
     public String toString() {
         String gudeText = withGuide ? "tak" : "nie"; // wyświetlanie tak/nie zamiast true/false
