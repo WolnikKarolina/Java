@@ -32,7 +32,7 @@ public class DataReader {
         System.out.println("Dzień: ");
         int day = getInt();
 
-        return new Magazine(title, publisher, language, year,month, day);
+        return new Magazine(title, publisher, year, month, day, language );
     }
 
     public Book readAndCreateBook() {
@@ -45,11 +45,11 @@ public class DataReader {
         System.out.println("ISBN: ");
         String isbn = sc.nextLine();
         System.out.println("Rok wydania: ");
-        int releseDate = getInt();
+        int year = getInt();
         System.out.println("Ilość stron: ");
         int pages = getInt();
 
-        return new Book(title, author, releseDate, pages, publisher, isbn);
+        return new Book(title, publisher, year, author, pages, isbn);
 
     }
 }

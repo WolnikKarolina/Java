@@ -1,21 +1,17 @@
 package multiFeatureTasks.library.pl.javastart.library.model;
 
 public class Book extends Publication {
-
     private String author;
     private int pages;
     private String isbn;
 
 
-    public Book(String title, String author, int year, int pages, String publisher, String isbn) {
-        setTitle(title);
-        setPublisher(publisher);
-        setYear(year);
+    public Book(String title, String publisher, int year, String author, int pages, String isbn) {
+        super(title, publisher, year);
         this.author = author;
         this.pages = pages;
         this.isbn = isbn;
     }
-
 
     public String getAuthor() {
         return author;

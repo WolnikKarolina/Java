@@ -1,9 +1,15 @@
 package multiFeatureTasks.library.pl.javastart.library.model;
 
 public class Publication {
-    private int year;
     private String title;
     private String publisher;
+    private int year;
+
+    public Publication(String title, String publisher, int year) {
+        this.title = title;
+        this.publisher = publisher;
+        this.year = year;
+    }
 
     public int getYear() {
         return year;
@@ -27,5 +33,8 @@ public class Publication {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public void printInfo(){
     }
 }
