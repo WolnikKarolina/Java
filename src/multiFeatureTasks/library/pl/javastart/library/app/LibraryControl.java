@@ -1,8 +1,12 @@
 package multiFeatureTasks.library.pl.javastart.library.app;
 
+import multiFeatureTasks.library.pl.javastart.library.exception.DataExportException;
+import multiFeatureTasks.library.pl.javastart.library.exception.DataImportException;
 import multiFeatureTasks.library.pl.javastart.library.exception.NoSuchOptionException;
 import multiFeatureTasks.library.pl.javastart.library.io.ConsolePrinter;
 import multiFeatureTasks.library.pl.javastart.library.io.DataReader;
+import multiFeatureTasks.library.pl.javastart.library.io.file.FileManager;
+import multiFeatureTasks.library.pl.javastart.library.io.file.FileManagerBuilder;
 import multiFeatureTasks.library.pl.javastart.library.model.Book;
 import multiFeatureTasks.library.pl.javastart.library.model.Library;
 import multiFeatureTasks.library.pl.javastart.library.model.Magazine;
@@ -10,14 +14,26 @@ import multiFeatureTasks.library.pl.javastart.library.model.Publication;
 
 import java.util.InputMismatchException;
 
-import static multiFeatureTasks.library.pl.javastart.library.app.Option.*;
 
 public class LibraryControl {
 
 
     private ConsolePrinter printer = new ConsolePrinter();
     private DataReader dataReader = new DataReader(printer);
-    private Library library = new Library();
+    private FileManager filemanager;
+    private Library library;
+
+    public LibraryControl() {
+        filemanager = new FileManagerBuilder(printer, dataReader).build();
+        try {
+            library = filemanager.importData();
+            printer.printLine("Zaimportowane dane z pliku");
+        }catch (DataImportException e) {
+            printer.printLine(e.getMessage());
+            printer.printLine("Zainicjowano nową bazę");
+            library = new Library();
+        }
+    }
 
     public void controlLoop(){
         Option option;
@@ -32,7 +48,7 @@ public class LibraryControl {
                 case EXIT -> exit();
                 default -> System.out.println("Nie ma takiej opcji, wprowadź ponownie");
             }
-        }while (option != EXIT);
+        }while (option != Option.EXIT);
     }
 
     private Option getOption() {
@@ -49,6 +65,13 @@ public class LibraryControl {
             }
         }
         return option;
+    }
+
+    private void printOptions() {
+        System.out.println("Wybierz opcję: ");
+        for (Option option : Option.values()) {
+            System.out.println(option);
+        }
     }
 
     private void printMagazines() {
@@ -68,7 +91,13 @@ public class LibraryControl {
     }
 
     private void exit() {
-        System.out.println("Koniec programu");
+        try {
+            filemanager.exportData(library);
+            printer.printLine("Export danych do pliku zakończony powodzeniem");
+        } catch (DataExportException e) {
+            printer.printLine(e.getMessage());
+        }
+        printer.printLine("Koniec programu");
         dataReader.close();
     }
 
@@ -90,12 +119,37 @@ public class LibraryControl {
 
     }
 
-    private void printOptions() {
-        System.out.println("Wybierz opcję: ");
-        for (Option option : values()) {
-            System.out.println(option);
+    private enum Option {
+        EXIT(0, "Wyjście z programu"),
+        ADD_BOOK(1, "Dodanie książki"),
+        ADD_MAGAZINE(2, "Dodanie magazynu"),
+        PRINT_BOOKS(3, " Wyświetlenie dostępnych książek"),
+        PRINT_MAGAZINES(4, "Wyświetlenie dostępnych magazynów");
+
+        private int value;
+        private String description;
+
+        Option(int value, String description) {
+            this.value = value;
+            this.description = description;
+        }
+
+        @Override
+        public String toString() {
+            return value + " - " + description;
+        }
+
+        static Option createFromInt(int option) throws NoSuchOptionException {
+            try {
+                return Option.values()[option];
+            } catch (ArrayIndexOutOfBoundsException e) {
+                throw new NoSuchOptionException("Brak opcji o id " + option);
+            }
         }
     }
+
+
+
 
 
 }

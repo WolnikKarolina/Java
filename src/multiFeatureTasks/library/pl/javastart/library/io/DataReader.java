@@ -17,6 +17,10 @@ public class DataReader {
         sc.close();
     }
 
+    public String getString() {
+        return sc.nextLine();
+    }
+
     public int getInt() {
         try {
             return sc.nextInt();
