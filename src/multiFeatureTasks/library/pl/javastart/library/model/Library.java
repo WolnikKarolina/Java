@@ -4,8 +4,7 @@ import multiFeatureTasks.library.pl.javastart.library.exception.PublicationAlrea
 import multiFeatureTasks.library.pl.javastart.library.exception.UserAlreadyExistsException;
 
 import java.io.Serializable;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class Library implements Serializable {
 
@@ -16,7 +15,6 @@ public class Library implements Serializable {
     public Map<String, Publication> getPublications() {
         return publications;
     }
-
     public Map<String, LibraryUser> getUsers() {
         return users;
     }
@@ -33,6 +31,18 @@ public class Library implements Serializable {
             throw new PublicationAlreadyExistsException("Publikacja o takim tytule juz istnieje " + publication.getTitle());
         }
         publications.put(publication.getTitle(), publication);
+    }
+
+    public Collection<Publication> getSortedPublications(Comparator<Publication> comparator) {
+        ArrayList<Publication> list = new ArrayList<>(this.publications.values());
+        list.sort(comparator);
+        return list;
+    }
+
+    public Collection<LibraryUser> getSortedUsers(Comparator<LibraryUser> comparator) {
+        ArrayList<LibraryUser> list = new ArrayList<>(this.users.values());
+        list.sort(comparator);
+        return list;
     }
 
     public boolean removePublication(Publication publication) {

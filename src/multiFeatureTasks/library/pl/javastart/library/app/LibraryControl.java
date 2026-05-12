@@ -10,8 +10,11 @@ import multiFeatureTasks.library.pl.javastart.library.io.file.FileManager;
 import multiFeatureTasks.library.pl.javastart.library.io.file.FileManagerBuilder;
 import multiFeatureTasks.library.pl.javastart.library.model.Book;
 import multiFeatureTasks.library.pl.javastart.library.model.Library;
+import multiFeatureTasks.library.pl.javastart.library.model.LibraryUser;
 import multiFeatureTasks.library.pl.javastart.library.model.Magazine;
+import multiFeatureTasks.library.pl.javastart.library.model.comparator.AlphabeticalTitleComparator;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 
@@ -98,11 +101,20 @@ public class LibraryControl {
     }
 
     private void printMagazines() {
-        printer.printMagazines(library.getPublications().values());
+        printer.printMagazines(library.getSortedPublications(new AlphabeticalTitleComparator()));
     }
 
     private void printBooks() {
-        printer.printBooks(library.getPublications().values());
+        printer.printBooks(library.getSortedPublications(new AlphabeticalTitleComparator()));
+    }
+
+    private void printUsers() {
+        printer.printUser(library.getSortedUsers(new Comparator<LibraryUser>() {
+            @Override
+            public int compare(LibraryUser u1, LibraryUser u2) {
+                return u1.getLastName().compareToIgnoreCase(u2.getLastName());
+            }
+        }));
     }
 
     private void deleteMagazine() {
