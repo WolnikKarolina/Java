@@ -8,10 +8,9 @@ import multiFeatureTasks.library.pl.javastart.library.io.ConsolePrinter;
 import multiFeatureTasks.library.pl.javastart.library.io.DataReader;
 import multiFeatureTasks.library.pl.javastart.library.io.file.FileManager;
 import multiFeatureTasks.library.pl.javastart.library.io.file.FileManagerBuilder;
-import multiFeatureTasks.library.pl.javastart.library.model.Book;
-import multiFeatureTasks.library.pl.javastart.library.model.Library;
-import multiFeatureTasks.library.pl.javastart.library.model.Magazine;
+import multiFeatureTasks.library.pl.javastart.library.model.*;
 
+import java.util.Comparator;
 import java.util.InputMismatchException;
 
 
@@ -99,17 +98,19 @@ public class LibraryControl {
 
     private void printMagazines() {
         printer.printMagazines(library.getSortedPublications(
-                (p1, p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())));
+                Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)));
     }
 
     private void printBooks() {
         printer.printBooks(library.getSortedPublications(
-                (p1,p2) -> p1.getTitle().compareToIgnoreCase(p2.getTitle())));
+               Comparator.comparing(Publication::getTitle, String.CASE_INSENSITIVE_ORDER)));
+
     }
 
     private void printUsers() {
-        printer.printUser(library.getSortedUsers((u1, u2)
-                -> u1.getLastName().compareToIgnoreCase(u2.getLastName())));
+        printer.printUser(library.getSortedUsers(
+                Comparator.comparing(User::getLastName, String.CASE_INSENSITIVE_ORDER)
+        ));
     }
 
     private void deleteMagazine() {
