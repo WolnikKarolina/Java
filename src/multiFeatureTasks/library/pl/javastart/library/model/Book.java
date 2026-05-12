@@ -7,6 +7,8 @@ public class Book extends Publication {
     private int pages;
     private String isbn;
 
+    public static final String TYPE = "Książka";
+
 
     public Book(String title, String publisher, int year, String author, int pages, String isbn) {
         super(title, publisher, year);
@@ -42,6 +44,18 @@ public class Book extends Publication {
     @Override
     public String toString() {
         return super.toString() + author + "; " + pages + "; " + isbn;
+    }
+
+    @Override
+    public String toCsv() {
+        return (TYPE + ";") +
+                getTitle() + ";" +
+                getPublisher() + ";" +
+                getYear() + ";" +
+                author + "; " +
+                pages + ";" +
+                isbn;
+
     }
 
     @Override
