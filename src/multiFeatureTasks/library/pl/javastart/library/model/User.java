@@ -3,7 +3,7 @@ package multiFeatureTasks.library.pl.javastart.library.model;
 import java.io.Serializable;
 import java.util.Objects;
 
-public abstract class User implements Serializable {
+public abstract class User implements Serializable, CsvConvertible {
     private String firstName;
     private String lastName;
     private String pesel;
@@ -38,9 +38,7 @@ public abstract class User implements Serializable {
         this.pesel = pesel;
     }
 
-    public abstract String toCsv();
-
-    @Override
+       @Override
     public boolean equals(Object o) {
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
