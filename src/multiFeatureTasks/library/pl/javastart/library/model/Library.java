@@ -1,46 +1,47 @@
 package multiFeatureTasks.library.pl.javastart.library.model;
 
+import multiFeatureTasks.library.pl.javastart.library.exception.PublicationAlreadyExistsException;
+import multiFeatureTasks.library.pl.javastart.library.exception.UserAlreadyExistsException;
+
 import java.io.Serializable;
-import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Library implements Serializable {
 
-    private static final int INITIAL_CAPACITY = 1;
-    private int publicationsNumber;
-    Publication[] publications = new Publication[INITIAL_CAPACITY];
 
-    public Publication[] getPublications() {
-        Publication[] result = new Publication[publicationsNumber];
-        for (int i = 0; i < publicationsNumber; i++) {
-            result[i] = publications[i];
+   private Map<String, Publication> publications = new HashMap<>();
+   private Map<String, LibraryUser> users = new HashMap<>();
+
+    public Map<String, Publication> getPublications() {
+        return publications;
+    }
+
+    public Map<String, LibraryUser> getUsers() {
+        return users;
+    }
+
+    public void addUser(LibraryUser user){
+        if (users.containsKey(user.getPesel())) {
+            throw new UserAlreadyExistsException("Użytkownik ze wskazanym peselem już istnieje " + user.getPesel());
         }
-        return result;
+        users.put(user.getPesel(), user);
     }
 
     public void addPublication(Publication publication) {
-        if (publicationsNumber == publications.length) {
-            publications = Arrays.copyOf(publications, publications.length * 2);
+        if (publications.containsKey(publication.getTitle())) {
+            throw new PublicationAlreadyExistsException("Publikacja o takim tytule juz istnieje " + publication.getTitle());
         }
-        publications[publicationsNumber] = publication;
-        publicationsNumber++;
+        publications.put(publication.getTitle(), publication);
     }
 
-    public boolean removePublication(Publication pub) {
-        final int NOT_FOUND = -1;
-        int found = NOT_FOUND;
-        int i = 0;
-        while (i < publications.length && found == NOT_FOUND) {
-            if (pub.equals(publications[i])) {
-                found = i;
-            } else {
-                i++;
-            }
+    public boolean removePublication(Publication publication) {
+        if (publications.containsValue(publication)) {
+            publications.remove(publication.getTitle());
+            return true;
+        }else {
+            return false;
         }
-        if (found != NOT_FOUND) {
-            System.arraycopy(publications, found + 1, publications, found, publications.length - found -1);
-            publicationsNumber--;
-        }
-        return  found != NOT_FOUND;
     }
 
     public void addBook(Book book){
