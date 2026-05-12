@@ -12,7 +12,9 @@ import multiFeatureTasks.library.pl.javastart.library.model.Book;
 import multiFeatureTasks.library.pl.javastart.library.model.Library;
 import multiFeatureTasks.library.pl.javastart.library.model.Magazine;
 import multiFeatureTasks.library.pl.javastart.library.model.Publication;
+import multiFeatureTasks.library.pl.javastart.library.model.comparator.AlphabeticalTitleComparator;
 
+import java.util.Arrays;
 import java.util.InputMismatchException;
 
 
@@ -53,6 +55,8 @@ public class LibraryControl {
             }
         }while (option != Option.EXIT);
     }
+
+
 
     private void deleteMagazine() {
         try {
@@ -102,8 +106,14 @@ public class LibraryControl {
     }
 
     private void printMagazines() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printMagazines(publications);
+    }
+
+    private Publication[] getSortedPublications() {
+        Publication[] publications = library.getPublications();
+        Arrays.sort(publications, new AlphabeticalTitleComparator());
+        return publications;
     }
 
     private void addMagazine() {
@@ -129,9 +139,8 @@ public class LibraryControl {
     }
 
     private void printBooks() {
-        Publication[] publications = library.getPublications();
+        Publication[] publications = getSortedPublications();
         printer.printBooks(publications);
-
     }
 
     private void addBook() {
@@ -143,7 +152,6 @@ public class LibraryControl {
         } catch (ArrayIndexOutOfBoundsException e) {
             printer.printLine("Osiągnięto limit pojemności, nie można dodac kolejnej publikacji");
         }
-
     }
 
     private enum Option {
