@@ -110,7 +110,7 @@ public class CsvFileManager implements FileManager{
         String author = data[4];
         int pages = Integer.valueOf(data[5]);
         String isbn = data[6];
-        return new Book(title, publisher,  year,author, pages,  isbn);
+        return new Book(title, publisher,  year, author, pages,  isbn);
     }
 
 
