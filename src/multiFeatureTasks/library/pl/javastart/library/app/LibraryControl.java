@@ -192,12 +192,16 @@ public class LibraryControl {
         }
 
         static Option createFromInt(int option) throws NoSuchOptionException {
-            try {
-                return Option.values()[option];
-            } catch (ArrayIndexOutOfBoundsException e) {
-                throw new NoSuchOptionException("Brak opcji o id " + option);
+            for (Option value : Option.values()) {
+                if (value.value == option) {
+                    return value;
+                }
             }
+            throw new NoSuchOptionException("Brak opcji o id " + option);
         }
+
+
+
     }
 
 
