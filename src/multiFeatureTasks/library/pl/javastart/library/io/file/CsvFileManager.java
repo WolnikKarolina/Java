@@ -5,8 +5,14 @@ import multiFeatureTasks.library.pl.javastart.library.exception.DataImportExcept
 import multiFeatureTasks.library.pl.javastart.library.exception.InvalidDataException;
 import multiFeatureTasks.library.pl.javastart.library.model.*;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.util.Collection;
+import java.util.List;
 
 public class CsvFileManager implements FileManager{
     private static final String PUBLICATION_FILE_NAME = "Library.csv";
@@ -38,31 +44,32 @@ public class CsvFileManager implements FileManager{
     }
 
     private <T extends CsvConvertible> void exportToCsv(Collection<T> collection, String fileName) {
-        try (FileWriter fileWriter = new FileWriter(fileName);
-             BufferedWriter bufferedWriter = new BufferedWriter(fileWriter)) {
-            for (T element : collection) {
-                bufferedWriter.write(element.toCsv());
-                bufferedWriter.newLine();
-            }
+        Path path = Path.of(fileName);
+        List<String> lines = collection.stream()
+                .map(T::toCsv)
+                .toList();
+        try {
+            Files.write(path, lines, StandardOpenOption.CREATE, StandardOpenOption.TRUNCATE_EXISTING);
         } catch (IOException e) {
             throw new DataExportException("Błąd zapisu danych do pliku " + fileName);
         }
     }
 
     private void importUsers(Library library) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(USERS_FILE_NAME))) {
-            bufferedReader.lines()
+        Path path = Path.of(USERS_FILE_NAME);
+        try {
+            List<String> lines = Files.readAllLines(path);
+            lines.stream()
                     .map(this::createUserFromString)
                     .forEach(library::addUser);
-        } catch (FileNotFoundException e) {
-            throw new DataImportException("Brak pliku " + USERS_FILE_NAME);
         } catch (IOException e) {
             throw new DataImportException("Błąd odczytu pliku " + USERS_FILE_NAME);
         }
     }
 
     private void importPublications(Library library) {
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(PUBLICATION_FILE_NAME))) {
+        Path path = Path.of(PUBLICATION_FILE_NAME);
+        try (BufferedReader bufferedReader = Files.newBufferedReader(path)) {
             bufferedReader.lines()
                     .map(this::createObjectFromString)
                     .forEach(library::addPublication);

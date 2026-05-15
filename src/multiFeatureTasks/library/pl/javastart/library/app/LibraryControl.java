@@ -97,8 +97,6 @@ public class LibraryControl {
             library.addPublication(magazine);
         } catch (InputMismatchException e) {
             printer.printLine("Nie udało się utworzyc książki, niepoprawne dane");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            printer.printLine("Osiągnięto limit pojemności, nie można dodac kolejnej publikacji");
         }
     }
 
@@ -108,9 +106,8 @@ public class LibraryControl {
             library.addPublication(book);
         } catch (InputMismatchException e) {
             printer.printLine("Nie udało się utworzyc książki, niepoprawne dane");
-        } catch (ArrayIndexOutOfBoundsException e) {
-            printer.printLine("Osiągnięto limit pojemności, nie można dodac kolejnej publikacji");
         }
+
     }
 
     private void printMagazines() {
